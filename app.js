@@ -10,7 +10,7 @@ app.use(express.json());
 //body parser
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://inscribelog.netlify.app/"],
+    origin: ["http://localhost:5173", "https://inscribelog.netlify.app"],
     credentials: true,
   })
 );
