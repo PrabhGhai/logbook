@@ -8,7 +8,12 @@ require("./conn/conn");
 app.use(express.json());
 
 //body parser
-app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://inscribelog.netlify.app/"],
+    credentials: true,
+  })
+);
 
 //cookie parser
 app.use(cookieParser());
