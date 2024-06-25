@@ -98,7 +98,12 @@ router.post("/sign-in", async (req, res) => {
     const token = jwt.sign({ id: id, role: role }, process.env.JWT_SECRET, {
       expiresIn: "1h", // Token expires in 1 hour
     });
-    res.cookie("logbookUserToken", token, { httpOnly: true, maxAge: 360000 });
+    res.cookie("logbookUserToken", token, {
+      httpOnly: true,
+      maxAge: 360000,
+      secure: process.env.NODE_ENV === "production", // Cookie is only sent over HTTPS in production
+      sameSite: "None",
+    });
     return res
       .status(200)
       .json({ token, role, id, message: "Sign-in successful" });

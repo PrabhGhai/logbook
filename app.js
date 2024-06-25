@@ -7,6 +7,9 @@ require("dotenv").config();
 require("./conn/conn");
 app.use(express.json());
 
+//cookie parser
+app.use(cookieParser());
+
 //body parser
 app.use(
   cors({
@@ -14,9 +17,6 @@ app.use(
     credentials: true,
   })
 );
-
-//cookie parser
-app.use(cookieParser());
 
 //routes
 app.use("/api/v1", userApi);
