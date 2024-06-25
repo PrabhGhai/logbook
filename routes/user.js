@@ -111,12 +111,25 @@ router.post("/sign-in", async (req, res) => {
 router.get("/user-details", authMiddleware, async (req, res) => {
   try {
     // User details are available in req.user due to authMiddleware
-    const { employeeName, email } = req.user;
-
-    return res.status(200).json({ employeeName, email });
+    const { email } = req.user;
+    const existUser = await user.findOne({ email: email });
+    return res.status(200).json({
+      employeeCode: existUser.employeeCode,
+      email: existUser.email,
+      employeeName: existUser.employeeName,
+      role: existUser.role,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal server error" });
   }
+});
+
+//logout
+router.post("/logout", (req, res) => {
+  res.clearCookie("logbookUserToken", {
+    httpOnly: true,
+  });
+  res.json({ message: "Logged out successfully" });
 });
 module.exports = router;
