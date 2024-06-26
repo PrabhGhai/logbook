@@ -95,6 +95,7 @@ router.post("/sign-in", async (req, res) => {
     // Generate JWT token
     const role = existingUser.role;
     const id = existingUser._id;
+    const employeeName = existingUser.employeeName;
     const token = jwt.sign({ id: id, role: role }, process.env.JWT_SECRET, {
       expiresIn: "1h", // Token expires in 1 hour
     });
@@ -106,7 +107,7 @@ router.post("/sign-in", async (req, res) => {
     });
     return res
       .status(200)
-      .json({ token, role, id, message: "Sign-in successful" });
+      .json({ token, role, id, employeeName, message: "Sign-in successful" });
   } catch (error) {
     return res.status(404).json({ message: "Internal server error" });
   }
