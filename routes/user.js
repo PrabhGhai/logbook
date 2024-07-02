@@ -92,6 +92,11 @@ router.post("/sign-in", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    //Check account is active or not
+    if (!existingUser.active) {
+      return res.status(400).json({ message: "Your account is deactivated." });
+    }
+
     // Generate JWT token
     const role = existingUser.role;
     const id = existingUser._id;
@@ -126,7 +131,6 @@ router.get("/user-details", authMiddleware, async (req, res) => {
       role: existUser.role,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Internal server error" });
   }
 });

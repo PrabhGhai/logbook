@@ -4,11 +4,12 @@ const User = require("../models/user");
 const authMiddleware = async (req, res, next) => {
   // Extract token from cookie
   const token = req.cookies.logbookUserToken;
-  if (!token) {
-    return res.status(401).json({ message: "Authorization token not found" });
-  }
 
   try {
+    if (!token) {
+      // No token provided, handle as new user scenario
+      return res.status(401).json({ error: "new-user" });
+    }
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
