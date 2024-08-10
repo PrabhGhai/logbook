@@ -3,6 +3,7 @@ const User = require("../models/user");
 
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.logbookUserToken;
+  //console.log(token);
 
   try {
     if (!token) {

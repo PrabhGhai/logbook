@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const userApi = require("./routes/user");
 const adminapi = require("./routes/adminroles");
+const categoryApi = require("./routes/sampleCat");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 require("./conn/conn");
@@ -22,6 +23,7 @@ app.use(
 //routes
 app.use("/api/v1", userApi);
 app.use("/api/v1", adminapi);
+app.use("/api/v1", categoryApi);
 
 //server listening
 app.listen(process.env.PORT, () => {
